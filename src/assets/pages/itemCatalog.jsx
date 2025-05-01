@@ -84,21 +84,21 @@ function ItemCatalog() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {items.map(item => (
-              <div key={item.id} className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
-                <div className="h-48 overflow-hidden">
+              <div key={item.id} className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col h-[360px]">
+                <div className="aspect-square w-full overflow-hidden relative">
                   <img 
                     src={item.image_url} 
                     alt={item.name} 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover absolute inset-0"
                     onError={(e) => {
-                      e.target.src = 'https://placehold.co/400x300?text=Image+Not+Available';
+                      e.target.src = 'https://placehold.co/400x400?text=Image+Not+Available';
                     }}
                   />
                 </div>
-                <div className="p-4">
-                  <h2 className="text-xl font-semibold text-gray-800 capitalize">{item.name}</h2>
+                <div className="p-4 flex flex-col flex-grow">
+                  <h2 className="text-xl font-semibold text-gray-800 capitalize truncate">{item.name}</h2>
                   <p className="text-orange-500 font-bold mt-2">{formatPrice(item.price)}</p>
-                  <div className="mt-4">
+                  <div className="mt-auto pt-4">
                     <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md transition duration-300 font-medium">
                       Add to Cart
                     </button>
