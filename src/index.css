@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @property --color-a {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #ff7b00;
+  }
+  @property --color-b {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #9d4edd;
+  }
+  @property --color-c {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #ffc700;
+  }
+}
+
+/* Animated gradient container - restrict to hero section */
+.animated-gradient-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.animated-gradient {
+  position: absolute; /* Changed from fixed to absolute */
+  top: -10%; /* Extend beyond viewport borders */
+  left: -10%;
+  right: -10%;
+  bottom: -10%;
+  width: 120%; /* Make wider than viewport */
+  height: 120%;
+  z-index: -1;
+  animation: colorTransition 20s infinite alternate ease-in-out;
+  background: linear-gradient(45deg, var(--color-a), var(--color-b), var(--color-c));
+  overflow: hidden;
+  filter: blur(30px); /* Kept for the main element */
+}
+
+.animated-gradient::before {
+  content: "";
+  position: absolute;
+  background: linear-gradient(45deg, var(--color-a), var(--color-b));
+  filter: blur(120px) brightness(1.3); /* Reduced brightness from 1.5 to 1.3 */
+  left: 20%;
+  top: 10%;
+  width: 70%;
+  height: 50%;
+  border-radius: 25px;
+  animation: blob 15s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  transform-origin: 60%;
+}
+
+.animated-gradient::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(45deg, var(--color-b), var(--color-c));
+  filter: blur(150px) brightness(1.3); /* Reduced brightness from 1.5 to 1.3 */
+  left: 40%;
+  top: 30%;
+  width: 70%;
+  height: 80%;
+  border-radius: 25px;
+  animation: blob 20s infinite cubic-bezier(0.215, 0.61, 0.355, 1) reverse;
+  transform-origin: 60%;
+}
+
+/* Add text and image shadow styles */
+.hero-text {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hero-image {
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.hero-image:hover {
+  transform: scale(1.03);
+}
+
+/* Logo shadows and hover */
+.logo-shadow {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.logo-shadow:hover {
+  transform: scale(1.1);
+}
+
+/* Shop now buttons */
+.shop-now-btn {
+  @apply font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105;
+}
+
+.shop-now-btn-small {
+  @apply font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm;
+}
+
+/* Animated underline for navbar */
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.nav-link-underline:hover::after {
+  width: 100%;
+}
+
+/* Animated gradient button */
+.gradient-button {
+  position: relative;
+  overflow: hidden;
+  @apply font-bold py-3 px-8 rounded-full shadow-lg text-white;
+  z-index: 1;
+}
+
+.gradient-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--color-a), var(--color-b), var(--color-c));
+  background-size: 400% 400%;
+  animation: colorTransition 8s infinite alternate ease-in-out;
+  z-index: -1;
+}
+
+/* Shop section - full white background */
+.shop-section {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  padding: 5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+@keyframes colorTransition {
+  0% {
+    --color-a: #ff7b00;
+    --color-b: #9d4edd;
+    --color-c: #ffc700;
+  }
+  33% {
+    --color-a: #ff9e00;
+    --color-b: #7b2cbf;
+    --color-c: #ffb700;
+  }
+  66% {
+    --color-a: #ff5400;
+    --color-b: #c77dff;
+    --color-c: #ffaa00;
+  }
+  100% {
+    --color-a: #ff7b00;
+    --color-b: #9d4edd;
+    --color-c: #ffc700;
+  }
+}
+
+@keyframes blob {
+  0% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  30% {
+    rotate: 40deg;
+  }
+  50% {
+    transform: translate(20vw, 30vh) scale(1.1);
+  }
+  80% {
+    rotate: 90deg;
+  }
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+}
+
+/* Animation for login page blobs */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Add this animation for the blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Loader popup animations */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
